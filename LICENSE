@@ -1,0 +1,66 @@
+Bendex Source Available License
+Copyright (c) 2026 Hannah Nine / Bendex Geometry LLC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to use,
+copy, modify, and distribute the Software for non-commercial purposes only,
+subject to the following conditions:
+
+1. NON-COMMERCIAL USE ONLY.
+
+   The Software may not be used, in whole or in part, for commercial purposes
+   without a separate written commercial license from Bendex Geometry LLC.
+
+   COMMERCIAL USE includes, but is not limited to:
+   a) Use in any product or service that is sold, licensed, subscribed to,
+      or otherwise monetized, directly or indirectly.
+   b) Use by any for-profit organization in its internal operations, research,
+      development, or infrastructure — including model training pipelines,
+      fine-tuning workflows, and production monitoring systems.
+   c) Use in any SaaS platform, API service, or cloud product.
+   d) Use in training, fine-tuning, or deploying AI/ML models for commercial
+      deployment or commercial research.
+   e) Use by any organization with annual revenue exceeding $10,000 USD.
+   f) Any use intended to generate revenue, reduce costs, or provide
+      competitive advantage in a commercial context.
+
+   NON-COMMERCIAL USE includes:
+   a) Academic research at accredited institutions with no commercial intent.
+   b) Personal, educational, or hobbyist projects with no commercial intent.
+   c) Research published in peer-reviewed venues with proper attribution.
+
+2. ATTRIBUTION.
+
+   Any use of the Software must retain this copyright notice and provide
+   clear attribution: "Bendex Monitor by Hannah Nine / Bendex Geometry LLC
+   (bendexgeometry.com)."
+
+3. NO PATENT GRANT.
+
+   This license does not grant any rights under any patents held by
+   Bendex Geometry LLC or Hannah Nine. The methods implemented in this
+   Software — including but not limited to weight divergence trajectory
+   curvature, z-scored dual-channel detection, deepest-early-cluster
+   attribution, and automated multi-phase intervention — are covered by
+   provisional patent applications filed by Hannah Nine (priority dates
+   November 2025, February 2026, March 2026).
+
+4. NO SUBLICENSING.
+
+   You may not sublicense, sell, or transfer the Software or any rights
+   under this license to any third party.
+
+5. REDISTRIBUTION.
+
+   Redistribution of the Software, with or without modification, is
+   permitted for non-commercial purposes only, provided this license
+   is included in full and attribution is maintained.
+
+6. DISCLAIMER.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+   IN NO EVENT SHALL HANNAH NINE OR BENDEX GEOMETRY LLC BE LIABLE FOR
+   ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM USE OF THE SOFTWARE.
+
+For commercial licensing inquiries: 9hannahnine@gmail.com
+Website: https://bendexgeometry.com

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "bendex-monitor"
+version = "0.1.0"
+description = "Neural network training stability monitor — detect, attribute, intervene."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Hannah Nine", email = "9hannahnine@gmail.com"}
+]
+keywords = [
+  "machine learning",
+  "neural network",
+  "training stability",
+  "instability detection",
+  "model monitoring",
+  "information geometry",
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "torch>=1.10",
+  "numpy>=1.20",
+]
+
+[project.urls]
+Homepage = "https://bendexgeometry.com"
+Repository = "https://github.com/hannahnine/bendex-monitor"
+Documentation = "https://bendexgeometry.com"
