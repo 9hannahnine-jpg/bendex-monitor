@@ -1,137 +1,139 @@
-# Bendex Monitor
+lines = [
+    "# Bendex Vigil",
+    "",
+    "**Detect. Attribute. Intervene.**",
+    "",
+    "Real-time neural network training stability monitoring grounded in information geometry.",
+    "",
+    "[![License](https://img.shields.io/badge/license-Source%20Available-blue)](LICENSE)",
+    "[![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org)",
+    "[![PyTorch](https://img.shields.io/badge/pytorch-1.10%2B-orange)](https://pytorch.org)",
+    "",
+    "---",
+    "",
+    "## What it does",
+    "",
+    "Vigil monitors your training run in real time, identifies which layer is failing, and corrects it automatically — before your loss curve shows anything.",
+    "",
+    "| | Vigil | Loss spike | Gradient norm | Patience |",
+    "|---|---|---|---|---|",
+    "| Detection rate | **100%** | 100% | 90% | 100% |",
+    "| False positive rate | **0%** | 80% | 50% | 50% |",
+    "| Recovery rate | **90%** | 0% | 0% | 0% |",
+    "| Attributes module | **Yes** | No | No | No |",
+    "| Intervenes automatically | **Yes** | No | No | No |",
+    "",
+    "*30-seed benchmark across 7 architectures: MLP, CNN, ViT, DistilBERT, GPT-2, ResNet-50, distribution shift.*",
+    "",
+    "---",
+    "",
+    "## How it works",
+    "",
+    "Vigil treats your model's weight trajectory as a geometric object and computes discrete curvature over it:",
+    "",
+    "    k_t = |d_t - 2*d_{t-1} + d_{t-2}|",
+    "",
+    "where `d_t` is the normalized per-module weight divergence from a reference checkpoint. During healthy training, `k_t` stays near zero. At instability onset it spikes — well before loss diverges.",
+    "",
+    "Two detection channels run in parallel:",
+    "",
+    "- **AND mode** — divergence step-change AND gradient energy both persistently exceed their z-scored baseline",
+    "- **Kappa mode** — curvature alone persistently exceeds its z-scored baseline",
+    "",
+    "When a trigger fires, the **deepest-early-cluster attribution** algorithm identifies the specific module that deviated first. A three-phase intervention then fires automatically.",
+    "",
+    "---",
+    "",
+    "## Install",
+    "",
+    "    pip install bendex-vigil",
+    "",
+    "Or from source:",
+    "",
+    "    git clone https://github.com/hannahnine/bendex-vigil",
+    "    cd bendex-vigil",
+    "    pip install -e .",
+    "",
+    "---",
+    "",
+    "## Usage",
+    "",
+    "One call. Before your forward pass.",
+    "",
+    "    from bendex import BendexMonitor, BendexConfig, BendexIntervention",
+    "",
+    "    monitor = BendexMonitor(model, config=BendexConfig())",
+    "    intervention = BendexIntervention(model, optimizer)",
+    "",
+    "    for step, batch in enumerate(dataloader):",
+    "        event = monitor.observe(step)",
+    "        intervention.step(event, step)",
+    "",
+    "        loss = model(batch)",
+    "        loss = loss + intervention.logit_loss(logits)",
+    "        loss.backward()",
+    "        intervention.apply_grad_clip()",
+    "        optimizer.step()",
+    "        optimizer.zero_grad()",
+    "",
+    "See `examples/basic_usage.py` for a complete working example.",
+    "",
+    "---",
+    "",
+    "## Configuration",
+    "",
+    "    config = BendexConfig(",
+    "        warmup_steps=60,",
+    "        z_threshold=2.5,",
+    "        persist=2,",
+    "        max_lag=6,",
+    "    )",
+    "",
+    "---",
+    "",
+    "## Validated architectures",
+    "",
+    "- Multilayer perceptron (MLP)",
+    "- Convolutional neural network (CNN)",
+    "- Small Vision Transformer (ViT)",
+    "- DistilBERT 66M — SST-2, 30-seed benchmark",
+    "- GPT-2 117M — WikiText-2 fine-tuning",
+    "- ResNet-50",
+    "- Distribution shift benchmark (SST-2 to MNLI)",
+    "",
+    "---",
+    "",
+    "## Research",
+    "",
+    "Vigil is the applied proof of a theoretical program in information geometry. Five published papers:",
+    "",
+    "1. [Informational Curvature](https://doi.org/10.6084/m9.figshare.31043617)",
+    "2. [Informational Stability](https://doi.org/10.6084/m9.figshare.31043695)",
+    "3. [Reflexivity](https://doi.org/10.6084/m9.figshare.31768678)",
+    "4. [Experience](https://doi.org/10.6084/m9.figshare.31768729)",
+    "5. [Specialization](https://doi.org/10.6084/m9.figshare.31768765) — derives the fine structure constant alpha to 8 significant figures from pure geometry",
+    "",
+    "---",
+    "",
+    "## License",
+    "",
+    "Source available. Free for research and non-commercial use. Commercial license required for all other use.",
+    "",
+    "See [LICENSE](LICENSE) for full terms.",
+    "",
+    "Patent pending. Methods covered by provisional patent applications filed by Hannah Nine / Bendex Geometry LLC (priority dates November 2025, February 2026, March 2026).",
+    "",
+    "For commercial licensing: 9hannahnine@gmail.com · [bendexgeometry.com](https://bendexgeometry.com)",
+    "",
+    "---",
+    "",
+    "## Author",
+    "",
+    "Hannah Nine — [bendexgeometry.com](https://bendexgeometry.com) · ORCID [0009-0006-3884-7372](https://orcid.org/0009-0006-3884-7372)",
+]
 
-**Detect. Attribute. Intervene.**
+with open("/content/vigil_readme.md", "w") as f:
+    f.write("\n".join(lines))
 
-Real-time neural network training stability monitoring grounded in information geometry.
-
-[![License](https://img.shields.io/badge/license-Source%20Available-blue)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org)
-[![PyTorch](https://img.shields.io/badge/pytorch-1.10%2B-orange)](https://pytorch.org)
-
----
-
-## What it does
-
-Bendex monitors your training run in real time, identifies which layer is failing, and corrects it automatically — before your loss curve shows anything.
-
-| | Bendex | Loss spike | Gradient norm | Patience |
-|---|---|---|---|---|
-| Detection rate | **100%** | 100% | 90% | 100% |
-| False positive rate | **0%** | 80% | 50% | 50% |
-| Recovery rate | **90%** | 0% | 0% | 0% |
-| Attributes module | **Yes** | No | No | No |
-| Intervenes automatically | **Yes** | No | No | No |
-
-*30-seed benchmark across 7 architectures: MLP, CNN, ViT, DistilBERT, GPT-2, ResNet-50, distribution shift.*
-
----
-
-## How it works
-
-Bendex treats your model's weight trajectory as a geometric object and computes discrete curvature over it:
-
-```
-κ_t = |d_t - 2·d_{t-1} + d_{t-2}|
-```
-
-where `d_t` is the normalized per-module weight divergence from a reference checkpoint. During healthy training, `κ_t` stays near zero. At instability onset it spikes — well before loss diverges.
-
-Two detection channels run in parallel:
-
-- **AND mode** — divergence step-change AND gradient energy both persistently exceed their z-scored baseline
-- **Kappa mode** — curvature alone persistently exceeds its z-scored baseline
-
-When a trigger fires, the **deepest-early-cluster attribution** algorithm identifies the specific module that deviated first. A three-phase intervention then fires automatically.
-
----
-
-## Install
-
-```bash
-pip install bendex-monitor
-```
-
-Or from source:
-
-```bash
-git clone https://github.com/hannahnine/bendex-monitor
-cd bendex-monitor
-pip install -e .
-```
-
----
-
-## Usage
-
-One call. Before your forward pass.
-
-```python
-from bendex import BendexMonitor, BendexConfig, BendexIntervention
-
-monitor = BendexMonitor(model, config=BendexConfig())
-intervention = BendexIntervention(model, optimizer)
-
-for step, batch in enumerate(dataloader):
-    event = monitor.observe(step)          # before forward pass
-    intervention.step(event, step)
-
-    loss = model(batch)
-    loss = loss + intervention.logit_loss(logits)
-    loss.backward()
-    intervention.apply_grad_clip()
-    optimizer.step()
-    optimizer.zero_grad()
-```
-
-See `examples/basic_usage.py` for a complete working example.
-
----
-
-## Configuration
-
-```python
-config = BendexConfig(
-    warmup_steps=60,     # steps to collect baseline before detection starts
-    z_threshold=2.5,     # z-score threshold for detection
-    persist=2,           # consecutive steps signal must exceed threshold
-    max_lag=6,           # attribution temporal window
-)
-```
-
----
-
-## Validated architectures
-
-- Multilayer perceptron (MLP)
-- Convolutional neural network (CNN)
-- Small Vision Transformer (ViT)
-- DistilBERT 66M — SST-2, 30-seed benchmark
-- GPT-2 117M — WikiText-2 fine-tuning
-- ResNet-50
-- Distribution shift benchmark (SST-2 → MNLI)
-
----
-
-## Research
-
-Bendex is the applied proof of a theoretical program in information geometry. Five published papers:
-
-1. [Informational Curvature](https://doi.org/10.6084/m9.figshare.31043617)
-2. [Informational Stability](https://doi.org/10.6084/m9.figshare.31043695)
-3. [Reflexivity](https://doi.org/10.6084/m9.figshare.31768678)
-4. [Experience](https://doi.org/10.6084/m9.figshare.31768729)
-5. [Specialization](https://doi.org/10.6084/m9.figshare.31768765) — derives the fine structure constant α to 8 significant figures from pure geometry
-
----
-
-## License
-
-Source available. Free for research and non-commercial use. Commercial license available — see [bendexgeometry.com](https://bendexgeometry.com) or email 9hannahnine@gmail.com.
-
-Patent pending. Methods covered by provisional patent applications filed by Hannah Nine / Bendex Geometry LLC.
-
----
-
-## Author
-
-Hannah Nine — [bendexgeometry.com](https://bendexgeometry.com) · ORCID [0009-0006-3884-7372](https://orcid.org/0009-0006-3884-7372)
+print("Written to /content/vigil_readme.md")
+print("Download from Files panel and upload to GitHub.")
